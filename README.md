@@ -1,135 +1,117 @@
-# Sistema de Gerenciamento de Alunos
+# Sistema de Gerenciamento de Alunos (CLI)
 
-API REST para gerenciamento de cadastro de alunos usando Python, FastAPI e PostgreSQL.
+Sistema de gerenciamento de cadastro de alunos via Interface de Linha de Comando (CLI) utilizando Python, SQLAlchemy e PostgreSQL.
 
 ## 📋 Funcionalidades
 
 - ✅ Cadastro completo de alunos
-- ✅ Listagem de alunos com filtros (curso, status ativo)
-- ✅ Busca por ID ou matrícula
-- ✅ Atualização de dados
-- ✅ Exclusão lógica e permanente
-- ✅ Validação de dados com Pydantic
-- ✅ Documentação automática (Swagger/ReDoc)
+- ✅ Listagem de alunos
+- ✅ Listagem filtrada por curso
+- ✅ Busca por ID ou Matrícula
+- ✅ Atualização de dados cadastrais
+- ✅ Desativação de alunos (Exclusão Lógica)
+- ✅ Exclusão permanente de alunos
+- ✅ Estatísticas do sistema
+- ✅ Validação de dados (CPF, Matrícula, etc.)
 
 ## 🛠️ Tecnologias
 
-- **Python 3.8+**
-- **FastAPI** - Framework web moderno e rápido
+- **Python 3.12+**
 - **SQLAlchemy** - ORM para banco de dados
 - **PostgreSQL** - Banco de dados relacional
-- **Pydantic** - Validação de dados
-- **Uvicorn** - Servidor ASGI
+- **Psycopg2** - Driver PostgreSQL
 
 ## 📦 Estrutura do Projeto
 
 ```
-projeto/
+student-system-python/
 ├── app/
-│   ├── __init__.py
-│   ├── database/
-│   │   ├── __init__.py
-│   │   └── connection.py      # Configuração do banco
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── aluno.py           # Modelo de dados
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   └── aluno.py           # Schemas de validação
-│   └── routes/
-│       ├── __init__.py
-│       └── alunos.py          # Endpoints da API
-├── main.py                     # Aplicação principal
-├── requirements.txt            # Dependências
-├── .env.example               # Exemplo de variáveis de ambiente
-└── README.md                  # Este arquivo
+│   ├── cli/                # Lógica da Interface de Linha de Comando
+│   │   ├── actions/        # Ações individuais (cadastrar, listar, etc.)
+│   │   ├── menu.py         # Exibição do menu principal
+│   │   ├── main.py         # Controlador principal da CLI
+│   │   └── utils.py        # Utilitários (input, formatação, etc.)
+│   ├── database/           # Configuração de conexão com banco
+│   └── models/             # Modelos ORM (SQLAlchemy)
+├── cli.py                  # Ponto de entrada da aplicação
+├── requirements.txt        # Dependências do projeto
+├── .env.example            # Exemplo de variáveis de ambiente
+└── README.md               # Documentação
 ```
 
 ## 🚀 Instalação e Configuração
 
-### 1. Instalar dependências
+Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
+
+### 1. Pré-requisitos
+
+- Python 3.12 ou superior instalado.
+- PostgreSQL instalado e rodando.
+
+### 2. Configurar o Ambiente Virtual (.venv)
+
+É **altamente recomendado** usar um ambiente virtual para isolar as dependências.
+
+```bash
+# Crie o ambiente virtual
+python3 -m venv .venv
+
+# Ative o ambiente virtual (Linux/macOS)
+source .venv/bin/activate
+
+# Ative o ambiente virtual (Windows)
+# .venv\Scripts\activate
+```
+
+### 3. Instalar Dependências
+
+Com o ambiente virtual ativado, instale as bibliotecas necessárias:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Configurar banco de dados PostgreSQL
+### 4. Configurar Banco de Dados
 
-Crie um banco de dados PostgreSQL:
+1. Certifique-se de que o serviço do PostgreSQL está rodando.
+2. Crie um banco de dados para o projeto:
 
 ```sql
 CREATE DATABASE alunos_db;
 ```
 
-### 3. Configurar variáveis de ambiente
+3. Configure as variáveis de ambiente:
+   - Copie o arquivo de exemplo:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edite o arquivo `.env` com suas credenciais do PostgreSQL:
+     ```env
+     DATABASE_URL=postgresql://seu_usuario:sua_senha@localhost:5432/alunos_db
+     ```
 
-Copie o arquivo `.env.example` para `.env`:
+### 5. Executar a Aplicação
 
-```bash
-cp .env.example .env
-```
+O banco de dados (tabelas) será criado automaticamente na primeira execução.
 
-Edite o arquivo `.env` com suas credenciais do PostgreSQL:
-
-```env
-DATABASE_URL=postgresql://seu_usuario:sua_senha@localhost:5432/alunos_db
-```
-
-### 4. Executar a aplicação
-
-#### Modo CLI (Interface de Terminal) - RECOMENDADO
+Para iniciar o sistema, execute o arquivo `cli.py`:
 
 ```bash
+# Executando com python
 python cli.py
+
+# Ou executando diretamente (se tiver permissão de execução)
+./cli.py
 ```
 
-#### Modo API (Servidor Web)
+## 💻 Como Usar
 
-```bash
-python main.py
-```
+Ao iniciar o programa, você verá o seguinte menu interativo:
 
-Ou com uvicorn diretamente:
-
-```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-A API estará disponível em: **http://localhost:8000**
-
-## 📚 Documentação da API
-
-Após iniciar a aplicação, acesse:
-
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-## 💻 Interface CLI (Linha de Comando)
-
-O sistema possui uma interface completa de terminal com menu interativo:
-
-```bash
-python cli.py
-```
-
-### Funcionalidades do CLI:
-
-1. **Cadastrar novo aluno** - Adicionar aluno com todos os dados
-2. **Listar todos os alunos** - Visualizar todos os alunos cadastrados
-3. **Buscar aluno por matrícula** - Encontrar aluno específico
-4. **Buscar aluno por ID** - Encontrar aluno por identificador
-5. **Atualizar dados do aluno** - Modificar informações existentes
-6. **Desativar aluno** - Exclusão lógica (mantém no banco)
-7. **Deletar aluno permanentemente** - Exclusão física
-8. **Listar alunos por curso** - Filtrar por curso específico
-9. **Estatísticas** - Visualizar estatísticas do sistema
-
-### Exemplo de uso do CLI:
-
-```
-====================================================================
-               SISTEMA DE GERENCIAMENTO DE ALUNOS
-====================================================================
+```text
+============================================================
+             SISTEMA DE GERENCIAMENTO DE ALUNOS
+============================================================
 
 📚 MENU PRINCIPAL
 
@@ -143,119 +125,16 @@ python cli.py
 8. Listar alunos por curso
 9. Estatísticas
 0. Sair
+
+============================================================
 ```
 
-## 🔌 Endpoints Disponíveis
-
-### Alunos
-
-| Método   | Endpoint                               | Descrição                         |
-| -------- | -------------------------------------- | --------------------------------- |
-| `POST`   | `/api/v1/alunos/`                      | Criar novo aluno                  |
-| `GET`    | `/api/v1/alunos/`                      | Listar todos os alunos            |
-| `GET`    | `/api/v1/alunos/{id}`                  | Obter aluno por ID                |
-| `GET`    | `/api/v1/alunos/matricula/{matricula}` | Obter aluno por matrícula         |
-| `PUT`    | `/api/v1/alunos/{id}`                  | Atualizar dados do aluno          |
-| `DELETE` | `/api/v1/alunos/{id}`                  | Desativar aluno (exclusão lógica) |
-| `DELETE` | `/api/v1/alunos/{id}/permanente`       | Deletar aluno permanentemente     |
-
-### Exemplos de Uso
-
-#### Criar um aluno
-
-```bash
-curl -X POST "http://localhost:8000/api/v1/alunos/" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "matricula": "2025001",
-    "nome": "João Silva",
-    "email": "joao.silva@email.com",
-    "cpf": "123.456.789-00",
-    "data_nascimento": "2000-05-15",
-    "curso": "Ciência da Computação",
-    "periodo": 3,
-    "media_geral": 8.5
-  }'
-```
-
-#### Listar alunos
-
-```bash
-curl "http://localhost:8000/api/v1/alunos/"
-```
-
-#### Listar alunos com filtros
-
-```bash
-# Por curso
-curl "http://localhost:8000/api/v1/alunos/?curso=Computação"
-
-# Apenas ativos
-curl "http://localhost:8000/api/v1/alunos/?ativo=1"
-```
-
-#### Obter aluno por ID
-
-```bash
-curl "http://localhost:8000/api/v1/alunos/1"
-```
-
-#### Atualizar aluno
-
-```bash
-curl -X PUT "http://localhost:8000/api/v1/alunos/1" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "periodo": 4,
-    "media_geral": 9.0
-  }'
-```
-
-#### Desativar aluno
-
-```bash
-curl -X DELETE "http://localhost:8000/api/v1/alunos/1"
-```
-
-## 📊 Modelo de Dados - Aluno
-
-| Campo             | Tipo        | Descrição                   | Restrições          |
-| ----------------- | ----------- | --------------------------- | ------------------- |
-| `id`              | Integer     | ID único                    | PK, Auto-incremento |
-| `matricula`       | String(20)  | Matrícula do aluno          | Único, Not Null     |
-| `nome`            | String(100) | Nome completo               | Not Null            |
-| `email`           | String(100) | Email                       | Único, Not Null     |
-| `cpf`             | String(14)  | CPF                         | Único, Not Null     |
-| `data_nascimento` | Date        | Data de nascimento          | Not Null            |
-| `curso`           | String(100) | Curso                       | Not Null            |
-| `periodo`         | Integer     | Período atual (1-12)        | Not Null            |
-| `media_geral`     | Float       | Média geral (0.0-10.0)      | Default: 0.0        |
-| `ativo`           | Integer     | Status (1=ativo, 0=inativo) | Default: 1          |
-
-## 🔧 Desenvolvimento
-
-### Adicionar novas rotas
-
-1. Crie um novo arquivo em `app/routes/`
-2. Defina o router e endpoints
-3. Registre o router em `main.py`
-
-### Adicionar novos modelos
-
-1. Crie um novo modelo em `app/models/`
-2. Crie os schemas correspondentes em `app/schemas/`
-3. Importe e use nas rotas
+Basta digitar o número da opção desejada e pressionar ENTER.
 
 ## 📝 Notas
 
-- A exclusão padrão (`DELETE /alunos/{id}`) é lógica, apenas desativa o aluno
-- Para exclusão permanente, use o endpoint `/alunos/{id}/permanente`
-- Validações de email, CPF e matrícula únicos são aplicadas automaticamente
-- O banco de dados é criado automaticamente na primeira execução
-
-## 🤝 Contribuindo
-
-Sinta-se à vontade para contribuir com melhorias!
+- **Exclusão Lógica (Desativar)**: A opção "Desativar aluno" apenas muda o status do aluno para inativo, mantendo o registro no banco para histórico.
+- **Exclusão Permanente**: A opção "Deletar aluno permanentemente" remove o registro definitivamente do banco de dados.
 
 ## 📄 Licença
 
