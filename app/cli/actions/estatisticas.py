@@ -1,3 +1,7 @@
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
+from app.models import Aluno
+
+
 # Exibe estatísticas do sistema
 def exibir_estatisticas(db):
     limpar_tela()
@@ -45,6 +49,7 @@ def exibir_estatisticas(db):
                 print(f"   • {curso}: {quantidade} aluno(s)")
 
     except Exception as e:
+        db.rollback()
         print(f"\n❌ Erro ao calcular estatísticas: {e}")
 
     pausar()

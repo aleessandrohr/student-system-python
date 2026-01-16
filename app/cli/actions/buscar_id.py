@@ -22,6 +22,7 @@ def buscar_por_id(db):
     except ValueError:
         print("\n❌ Erro: ID deve ser um número!")
     except Exception as e:
+        db.rollback()
         print(f"\n❌ Erro ao buscar aluno: {e}")
 
     pausar()

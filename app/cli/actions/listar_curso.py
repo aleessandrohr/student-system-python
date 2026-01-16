@@ -19,6 +19,7 @@ def listar_por_curso(db):
         else:
             # Agrupa alunos por curso
             cursos = {}
+
             for aluno in alunos:
                 if aluno.curso not in cursos:
                     cursos[aluno.curso] = []
@@ -31,6 +32,7 @@ def listar_por_curso(db):
                     exibir_aluno(aluno)
 
     except Exception as e:
+        db.rollback()
         print(f"\n❌ Erro ao listar alunos: {e}")
 
     pausar()

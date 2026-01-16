@@ -20,6 +20,7 @@ def buscar_por_matricula(db):
             exibir_aluno(aluno)
 
     except Exception as e:
+        db.rollback()
         print(f"\n❌ Erro ao buscar aluno: {e}")
 
     pausar()
