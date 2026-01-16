@@ -1,18 +1,15 @@
-"""
-Configuração da conexão com o banco de dados PostgreSQL
-"""
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
-from dotenv import load_dotenv
 
 load_dotenv()
 
 # URL de conexão com o PostgreSQL
 DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:postgres@localhost:5432/alunos_db"
+    "DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/alunos_db"
 )
 
 # Criar engine do SQLAlchemy
@@ -26,10 +23,9 @@ Base = declarative_base()
 
 
 def get_db():
-    """
-    Dependency para obter uma sessão do banco de dados
-    """
+    # Dependency para obter uma sessão do banco de dados
     db = SessionLocal()
+
     try:
         yield db
     finally:
@@ -37,7 +33,5 @@ def get_db():
 
 
 def init_db():
-    """
-    Inicializa o banco de dados criando todas as tabelas
-    """
+    # Inicializa o banco de dados criando todas as tabelas
     Base.metadata.create_all(bind=engine)
