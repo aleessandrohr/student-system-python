@@ -1,18 +1,17 @@
-from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, buscar_aluno, limpar_tela, pausar
 from app.models import Aluno
 
 
+# Desativa um aluno (exclusão lógica)
 def desativar_aluno(db):
-    """Desativa um aluno (exclusão lógica)"""
     limpar_tela()
     print("=" * TERMINAL_WIDTH)
-    print("    DESATIVAR ALUNO".center(TERMINAL_WIDTH))
+    print("DESATIVAR ALUNO".center(TERMINAL_WIDTH))
     print("=" * TERMINAL_WIDTH)
     print()
 
     try:
-        aluno_id = int(input("Digite o ID do aluno: "))
-        aluno = db.query(Aluno).filter(Aluno.id == aluno_id).first()
+        aluno = buscar_aluno(db)
 
         if not aluno:
             print("\n❌ Aluno não encontrado!")
@@ -27,8 +26,6 @@ def desativar_aluno(db):
             else:
                 print("\n❌ Operação cancelada.")
 
-    except ValueError:
-        print("\n❌ Erro: ID deve ser um número!")
     except Exception as e:
         print(f"\n❌ Erro ao desativar aluno: {e}")
         db.rollback()

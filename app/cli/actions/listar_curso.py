@@ -1,32 +1,34 @@
-from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, exibir_aluno, limpar_tela, pausar
 from app.models import Aluno
 
 
+# Lista alunos por curso
 def listar_por_curso(db):
-    """Lista alunos por curso"""
     limpar_tela()
     print("=" * TERMINAL_WIDTH)
-    print("    LISTAR ALUNOS POR CURSO".center(TERMINAL_WIDTH))
+    print("LISTAR ALUNOS POR CURSO".center(TERMINAL_WIDTH))
     print("=" * TERMINAL_WIDTH)
     print()
 
     try:
-        curso = input("Digite o nome do curso (ou parte dele): ").strip()
-        alunos = db.query(Aluno).filter(Aluno.curso.ilike(f"%{curso}%")).all()
+        # Busca todos os alunos ordenados por curso
+        alunos = db.query(Aluno).order_by(Aluno.curso).all()
 
         if not alunos:
-            print("\n📭 Nenhum aluno encontrado para este curso.")
+            print("\n📭 Nenhum aluno cadastrado.")
         else:
-            print(f"\nTotal de alunos: {len(alunos)}\n")
+            # Agrupa alunos por curso
+            cursos = {}
             for aluno in alunos:
-                status = "✅ Ativo" if aluno.ativo == 1 else "❌ Inativo"
-                print(f"\n{'─' * TERMINAL_WIDTH}")
-                print(f"ID: {aluno.id} | Matrícula: {aluno.matricula}")
-                print(f"Nome: {aluno.nome}")
-                print(f"Curso: {aluno.curso} | Período: {aluno.periodo}")
-                print(f"Média: {aluno.media_geral:.2f} | Status: {status}")
+                if aluno.curso not in cursos:
+                    cursos[aluno.curso] = []
+                cursos[aluno.curso].append(aluno)
 
-            print(f"\n{'─' * TERMINAL_WIDTH}")
+            # Exibe alunos de cada curso
+            for curso, lista_alunos in cursos.items():
+                print(f"\n🎓 {curso.upper()}: {len(lista_alunos)} alunos")
+                for aluno in lista_alunos:
+                    exibir_aluno(aluno)
 
     except Exception as e:
         print(f"\n❌ Erro ao listar alunos: {e}")

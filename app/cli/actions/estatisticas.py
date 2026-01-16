@@ -1,12 +1,8 @@
-from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
-from app.models import Aluno
-
-
+# Exibe estatísticas do sistema
 def exibir_estatisticas(db):
-    """Exibe estatísticas do sistema"""
     limpar_tela()
     print("=" * TERMINAL_WIDTH)
-    print("    ESTATÍSTICAS DO SISTEMA".center(TERMINAL_WIDTH))
+    print("ESTATÍSTICAS DO SISTEMA".center(TERMINAL_WIDTH))
     print("=" * TERMINAL_WIDTH)
     print()
 
@@ -28,6 +24,7 @@ def exibir_estatisticas(db):
         # Cursos
         cursos = {}
         alunos = db.query(Aluno).all()
+
         for aluno in alunos:
             if aluno.curso in cursos:
                 cursos[aluno.curso] += 1
@@ -41,6 +38,7 @@ def exibir_estatisticas(db):
 
         if cursos:
             print(f"\n📚 Alunos por curso:")
+
             for curso, quantidade in sorted(
                 cursos.items(), key=lambda x: x[1], reverse=True
             ):
