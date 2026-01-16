@@ -1,13 +1,13 @@
-from app.cli.utils import limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
 from app.models import Aluno
 
 
 def buscar_por_matricula(db):
     """Busca aluno por matrícula"""
     limpar_tela()
-    print("=" * 60)
-    print("    BUSCAR ALUNO POR MATRÍCULA".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("    BUSCAR ALUNO POR MATRÍCULA".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print()
 
     try:
@@ -18,7 +18,7 @@ def buscar_por_matricula(db):
             print("\n❌ Aluno não encontrado!")
         else:
             status = "✅ Ativo" if aluno.ativo == 1 else "❌ Inativo"
-            print(f"\n{'─' * 60}")
+            print(f"\n{'─' * TERMINAL_WIDTH}")
             print(f"ID: {aluno.id}")
             print(f"Matrícula: {aluno.matricula}")
             print(f"Nome: {aluno.nome}")
@@ -29,7 +29,7 @@ def buscar_por_matricula(db):
             print(f"Período: {aluno.periodo}")
             print(f"Média Geral: {aluno.media_geral:.2f}")
             print(f"Status: {status}")
-            print(f"{'─' * 60}")
+            print(f"{'─' * TERMINAL_WIDTH}")
 
     except Exception as e:
         print(f"\n❌ Erro ao buscar aluno: {e}")

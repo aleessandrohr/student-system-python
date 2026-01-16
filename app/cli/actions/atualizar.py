@@ -1,13 +1,13 @@
-from app.cli.utils import limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
 from app.models import Aluno
 
 
 def atualizar_aluno(db):
     """Atualiza dados do aluno"""
     limpar_tela()
-    print("=" * 60)
-    print("    ATUALIZAR DADOS DO ALUNO".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("    ATUALIZAR DADOS DO ALUNO".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print()
 
     try:

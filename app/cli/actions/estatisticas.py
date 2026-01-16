@@ -1,13 +1,13 @@
-from app.cli.utils import limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
 from app.models import Aluno
 
 
 def exibir_estatisticas(db):
     """Exibe estatísticas do sistema"""
     limpar_tela()
-    print("=" * 60)
-    print("    ESTATÍSTICAS DO SISTEMA".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("    ESTATÍSTICAS DO SISTEMA".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print()
 
     try:

@@ -1,12 +1,12 @@
-from app.cli.utils import limpar_tela
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela
 
 
+# Exibe o menu principal
 def exibir_menu():
-    """Exibe o menu principal"""
     limpar_tela()
-    print("=" * 60)
-    print("    SISTEMA DE GERENCIAMENTO DE ALUNOS".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("SISTEMA DE GERENCIAMENTO DE ALUNOS".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print("\n📚 MENU PRINCIPAL\n")
     print("1. Cadastrar novo aluno")
     print("2. Listar todos os alunos")
@@ -18,4 +18,4 @@ def exibir_menu():
     print("8. Listar alunos por curso")
     print("9. Estatísticas")
     print("0. Sair")
-    print("\n" + "=" * 60)
+    print("\n" + "=" * TERMINAL_WIDTH)

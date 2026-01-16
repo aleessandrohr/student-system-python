@@ -1,13 +1,13 @@
-from app.cli.utils import limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
 from app.models import Aluno
 
 
 def deletar_aluno(db):
     """Deleta um aluno permanentemente"""
     limpar_tela()
-    print("=" * 60)
-    print("    DELETAR ALUNO PERMANENTEMENTE".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("    DELETAR ALUNO PERMANENTEMENTE".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print()
 
     try:

@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Interface de Linha de Comando (CLI) para o Sistema de Gerenciamento de Alunos
-Execute: python cli.py
-"""
+
 import os
 import sys
 

@@ -1,13 +1,13 @@
-from app.cli.utils import limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
 from app.models import Aluno
 
 
 def desativar_aluno(db):
     """Desativa um aluno (exclusão lógica)"""
     limpar_tela()
-    print("=" * 60)
-    print("    DESATIVAR ALUNO".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("    DESATIVAR ALUNO".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print()
 
     try:

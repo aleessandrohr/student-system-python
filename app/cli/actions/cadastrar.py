@@ -1,15 +1,15 @@
 from datetime import datetime
 
-from app.cli.utils import limpar_tela, pausar
+from app.cli.utils import TERMINAL_WIDTH, limpar_tela, pausar
 from app.models import Aluno
 
 
 def cadastrar_aluno(db):
     """Cadastra um novo aluno"""
     limpar_tela()
-    print("=" * 60)
-    print("    CADASTRAR NOVO ALUNO".center(60))
-    print("=" * 60)
+    print("=" * TERMINAL_WIDTH)
+    print("    CADASTRAR NOVO ALUNO".center(TERMINAL_WIDTH))
+    print("=" * TERMINAL_WIDTH)
     print()
 
     try:
