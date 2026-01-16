@@ -70,5 +70,6 @@ class SistemaAlunos:
                 sys.exit(0)
 
             except Exception as e:
+                self.db.rollback()
                 print(f"\n❌ Erro inesperado: {e}")
                 pausar()
