@@ -87,11 +87,11 @@ def cadastrar_aluno(db):
 
         # Criar aluno
         novo_aluno = Aluno(
+            matricula=matricula,
             nome=nome,
             email=email,
             cpf=cpf,
             data_nascimento=data_nascimento,
-            matricula=matricula,
             curso=curso,
             periodo=periodo,
             media_geral=media_geral,
