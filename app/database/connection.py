@@ -13,7 +13,7 @@ DATABASE_URL = os.getenv(
 )
 
 # Criar engine do SQLAlchemy
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=False)
 
 # Criar sessão
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
