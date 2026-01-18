@@ -20,6 +20,7 @@ Sistema de gerenciamento de cadastro de alunos via Interface de Linha de Comando
 - **SQLAlchemy** - ORM para banco de dados
 - **PostgreSQL** - Banco de dados relacional
 - **Psycopg2** - Driver PostgreSQL
+- **Black** - Formatação de código
 
 ## 📦 Estrutura do Projeto
 
@@ -73,6 +74,18 @@ pip install -r requirements.txt
 
 ### 4. Configurar Banco de Dados
 
+Você tem duas opções para subir o banco de dados:
+
+**Opção A: Via Docker (Recomendado)**
+
+Se você possui Docker instalado, basta executar:
+
+```bash
+docker compose up -d
+```
+
+**Opção B: Manualmente**
+
 1. Certifique-se de que o serviço do PostgreSQL está rodando.
 2. Crie um banco de dados para o projeto:
 
@@ -80,12 +93,15 @@ pip install -r requirements.txt
 CREATE DATABASE alunos_db;
 ```
 
-3. Configure as variáveis de ambiente:
-   - Copie o arquivo de exemplo:
-     ```bash
-     cp .env.example .env
-     ```
-   - Edite o arquivo `.env` com suas credenciais do PostgreSQL:
+**Configuração do `.env`**
+
+1. Copie o arquivo de exemplo:
+   ```bash
+   cp .env.example .env
+   ```
+2. Verifique se a conexão está correta no arquivo `.env`.
+   - Se usou **Docker**, o padrão do exemplo já funciona (`postgres:postgres@localhost:5432/alunos_db`).
+   - Se criou **manualmente**, edite com suas credenciais:
      ```env
      DATABASE_URL=postgresql://seu_usuario:sua_senha@localhost:5432/alunos_db
      ```
